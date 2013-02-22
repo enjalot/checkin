@@ -1,5 +1,5 @@
 
-var settings = require("settings");
+var settings = require("./settings");
 var eventId = "102356032"
 //you can see your meetup api key by using their api explorer:
 //http://www.meetup.com/meetup_api/console/?path=/2/rsvps
@@ -15,9 +15,6 @@ var mongoConf = {
   port: 27017,
   db: 'checkin'
 };
-
-var settings = require('./settings');
-var port = settings.port || 8888;
 
 //MONGO SETUP
 var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '?auto_reconnect');
@@ -48,7 +45,7 @@ function fetchRSVPS(error, response, body) {
         time: e0.event.time,
         rsvps: totalRSVPS
       }
-      $events.insert(evt, function() {
+      $events.insert(evt, {safe: true}, function() {
         db.close();
         process.exit();
       });

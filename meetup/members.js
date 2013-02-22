@@ -1,5 +1,5 @@
 
-var settings = require("settings");
+var settings = require("./settings");
 var groupId = "3250422"
 //you can see your meetup api key by using their api explorer:
 //http://www.meetup.com/meetup_api/console/?path=/members
@@ -16,9 +16,6 @@ var mongoConf = {
   port: 27017,
   db: 'checkin'
 };
-
-var settings = require('./settings');
-var port = settings.port || 8888;
 
 //MONGO SETUP
 var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '?auto_reconnect');
@@ -40,9 +37,11 @@ function fetchMembers(error, response, body) {
     } else {
       //can uncomment for testing
       //$members.remove({});
-      $members.insert(totalMembers);
-      db.close();
-      process.exit();
+      $members.insert(totalMembers, {safe: true}, function() {
+        console.log("done!", totalMembers.length);
+        db.close();
+        process.exit();
+      });
     }
   }
 }
