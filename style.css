@@ -1,5 +1,4 @@
 #display {
-  overflow: scroll;
 }
 .app {
   margin-top: 10px;
@@ -11,8 +10,12 @@
 .checkedin {
   display: none;
 }
+
+svg.check {
+  fill: #198B19;
+}
 .save {
-  float: left;
+  float: right;
   
   font-size: 27px;
   margin-left: 20px;
@@ -48,22 +51,32 @@
  
 }
 
-.rsvplist {
-  width: 334px;
+.memberlist {
+  padding: 20px;
+  width: 634px;
+  height: 100%;
+  min-height: 1500px;
+  display: block;
   float:left;
+  clear:left;
+  border-right: 1px solid black;
 }
-.rsvp {
+
+
+.member {
+  position: relative;
   border-radius: 6px;
   padding: 8px;
   background-color: #f0f0f0;
   width: 235px;
   min-height: 100px;
   float:left;
-  margin-left: 17px;
+  margin-left: 10px;
   margin-top: 10px;
   background-color: #F0F0F0;
   border: 1px solid #F0F0F0,
   border-color: #BEBEBE
+
 
 background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(240, 240, 240)), to(rgb(222, 221, 223)));
 background-image: -webkit-linear-gradient(top, rgb(240, 240, 240), rgb(222, 221, 223));
@@ -81,10 +94,10 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr=
 -webkit-filter: grayscale(90%);
 -moz-filter: grayscale(90%);
 -ms-filter: grayscale(90%);
--o-filter: grayscale(90%);
+-o-filter: grayscale(90%); 
 
 }
-.rsvp:hover{
+.member:hover{
          filter: grayscale(0%);
 -webkit-filter: grayscale(0%);
 -moz-filter: grayscale(0%);
@@ -92,17 +105,29 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr=
 -o-filter: grayscale(0%);
 }
 
-.rsvp img {
+.member svg.rsvp {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+.member svg.check {
+  float: left;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+.member img {
   border-radius: 10px !important; 
   display: inline-block;
- width: 80px;
+  width: 80px;
   max-height: 98px;
   
       -webkit-box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.672); 
           box-shadow:     0px 1px 1px 1px rgba(0,0,0,0.192); 
   
 }
-.rsvp span {
+.member span {
   display: inline-block;
   vertical-align: top;
   margin-top: 8px;
@@ -114,12 +139,15 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr=
 
 .checkinlist {
   width: 300px;
+  padding: 20px;
   float:left;
 }
 .checkin {
+  position:relative;
   border-radius: 6px;
   padding: 8px;
-  background-color: #58A85B;
+  /*background-color: #58A85B;*/
+  background-color: #94C996;
   width: 235px;
   min-height: 100px;
   float:left;
@@ -127,6 +155,17 @@ filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr=
   margin-top: 10px;
   border: 1px solid #F0F0F0,
   border-color: #BEBEBE
+}
+
+.checkin svg.rsvp {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+.checkin svg.check {
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 
 .checkin img {

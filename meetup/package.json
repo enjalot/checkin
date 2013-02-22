@@ -1,0 +1,13 @@
+{
+  "name": "meetup-slurper",
+  "description": "",
+  "version": "0.0.1",
+  "main": "./members.js",
+  "dependencies": {
+    "request":"2.14.0",
+    "mongoskin":"0.4.4"
+  },
+  "private": true,
+  "devDependencies": {
+  }
+}
