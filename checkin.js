@@ -133,7 +133,7 @@ function render() {
   }
           
 
-  function rsvpclick(d, dontSave) {
+  function rsvpclick(d) {
     d.checkin = {
       at: new Date()
     }
@@ -153,13 +153,12 @@ function render() {
     
     checkinlist.selectAll("div.checkin")
       .sort(function(a,b) { 
-        return a.checkin.at < b.checkin.at;
+        return new Date(a.checkin.at) < new Date(b.checkin.at);
       })
     
     //update the people in the member list
     search();
-    if(!dontSave)
-      saveCheckins();
+    saveCheckins();
   }
 
   function search() {
@@ -200,6 +199,7 @@ function render() {
   var plus = app.select("button.plus");
   plus.on("click", function() {
     var newMember = {
+      id: generateUUID(),
       info: {
         name: input.node().value
       }
@@ -230,10 +230,16 @@ function render() {
           members.push(checkin) 
           member = members[members.length-1];
         }
-        console.log("member", member)
-        rsvpclick(member, true)
+        //console.log("member", member, member.info.name, checkin.info.name)
+        rsvpclick(member)
       })
     }
   }
-    
+}
+function generateUUID() {
+  var uid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+      return v.toString(16);
+  });
+  return uid
 } 
