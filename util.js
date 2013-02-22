@@ -41,7 +41,7 @@ function mergeRsvp(member, rsvp) {
 function mergeCheckin(member, checkin) {
   member.checkin = {
     at: checkin.at,
-    guests: checkin.guests
+    guests: checkin.guests || []
   }
 }
 

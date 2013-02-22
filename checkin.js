@@ -9,44 +9,42 @@ d3.json("02212013/events.json", function(error, evts) {
   });
 });
   
-function prepareMembers() {
-  evt.rsvps.forEach(function(rsvp) {
-    //match rsvp to member and update it
-    var member = _.find(members, function(d) { return d.id == rsvp.id});
-    if(member) mergeRsvp(member, rsvp);
-    if(!member) console.log("member for rsvp not found", rsvp);
-  })
 
-  /*
-  checkins.forEach(function(checkin) {
-    //match checkin to member and update it
-    var member = _.find(members, function(d) { return d.id == checkin.id});
-    if(member) mergeCheckin(member, checkin);
-    if(!member) console.log("member for checkin not found", checkin);
-  })
-  */
-}
 
 function render() {
-  prepareMembers();
+  
+  var checkedin = [];
 
   var app = d3.select("#display");
   app.select(".save")
     .on("click", output);
+    //div that holds all the rsvp cards
+  var memberlist = app.select("div.memberlist")
+  //div that holds all the checked in
+  var checkinlist = app.select("div.checkinlist")
+  var input = app.select("input.search")
+    .on("keyup", search);
+
+
+
+  prepareMembers();
    
   function output(){
+    var saved = saveCheckins();
+    d3.select("#savearea").text(saved)
+      .classed("hidden", false);
+   
+    console.log(saved);
+  }
+  
+  function saveCheckins() {
     var checkedin = _.filter(members, function(d) {
       return !!d.checkin;
     })
     var saved = JSON.stringify(checkedin);
-    d3.select("#savearea").text(saved)
-      .classed("hidden", false);
-    
-    
-    console.log(saved);
-  }
-    
-  var checkedin = [];
+    localStorage.setItem("checkins", saved);
+    return saved;
+  }    
 
   members.sort(function(a,b) {
     var adate, bdate;
@@ -62,10 +60,6 @@ function render() {
     }
   })
     
-  //div that holds all the rsvp cards
-  var memberlist = app.select("div.memberlist")
-  //div that holds all the checked in
-  var checkinlist = app.select("div.checkinlist")
 
   memberList(members.slice(0, maxRender));
   
@@ -139,7 +133,7 @@ function render() {
   }
           
 
-  function rsvpclick(d) {
+  function rsvpclick(d, dontSave) {
     d.checkin = {
       at: new Date()
     }
@@ -154,6 +148,7 @@ function render() {
         delete c.checkin;
         d3.select(this).remove();
         search();
+        saveCheckins();
       })
     
     checkinlist.selectAll("div.checkin")
@@ -163,10 +158,10 @@ function render() {
     
     //update the people in the member list
     search();
+    if(!dontSave)
+      saveCheckins();
   }
 
-  var input = app.select("input.search")
-    .on("keyup", search);
   function search() {
     var name = input.node().value.toLowerCase();
     var filtered = _.filter(members, function(r) {
@@ -217,5 +212,28 @@ function render() {
     
   })
    
+  function prepareMembers() {
+    evt.rsvps.forEach(function(rsvp) {
+      //match rsvp to member and update it
+      var member = _.find(members, function(d) { return d.id == rsvp.id});
+      if(member) mergeRsvp(member, rsvp);
+      if(!member) console.log("member for rsvp not found", rsvp);
+    })
+    
+    var checkins = JSON.parse(localStorage.getItem("checkins"));
+    if(checkins) {
+      checkins.forEach(function(checkin) {
+        //match checkin to member and update it
+        var member = _.find(members, function(d) { return d.id == checkin.id});
+        if(member) mergeCheckin(member, checkin);
+        if(!member) { 
+          members.push(checkin) 
+          member = members[members.length-1];
+        }
+        console.log("member", member)
+        rsvpclick(member, true)
+      })
+    }
+  }
     
 } 
