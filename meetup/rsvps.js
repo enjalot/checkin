@@ -1,6 +1,6 @@
 
 var settings = require("./settings");
-var eventId = "102356032"
+var eventId = "103428452"
 //you can see your meetup api key by using their api explorer:
 //http://www.meetup.com/meetup_api/console/?path=/2/rsvps
 var API_KEY= settings.API_KEY;

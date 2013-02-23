@@ -1,9 +1,9 @@
 var events, members;
 var evt;
-d3.json("02212013/events.json", function(error, evts) {
+d3.json("02232013/events.json", function(error, evts) {
   events = evts;
   evt = events[0]; //for now only have one event in our events
-  d3.json("02212013/members.json", function(error, mmbers) {
+  d3.json("02232013/members.json", function(error, mmbers) {
     members = mmbers;
     render();
   });

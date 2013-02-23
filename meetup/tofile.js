@@ -17,6 +17,10 @@ var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '
 $members = db.collection("members");
 $events = db.collection("events");
 
+var evt = {
+  name: "Urban Data Hackathon"
+}
+
 
 //write out members
 $members.find({}).toArray(function(error, members) {
@@ -27,7 +31,7 @@ $members.find({}).toArray(function(error, members) {
     
     //TODO use async to do this...
     //write out rsvps
-    $events.find({}).toArray(function(error, events) {
+    $events.find(evt).toArray(function(error, events) {
       var buffer = JSON.stringify(events);
       console.log("events", events.length);
       fs.writeFile("events.json", buffer, function(err) {
