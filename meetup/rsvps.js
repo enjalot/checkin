@@ -20,6 +20,8 @@ var mongoConf = {
 var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '?auto_reconnect');
 
 $events = db.collection("events");
+$rsvps = db.collection("rsvps");
+$rsvps = db.collection("full_rsvps");
 
 var totalRSVPS = [];
 

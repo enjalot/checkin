@@ -9,6 +9,7 @@ var url = "https://api.meetup.com/members?key=" + API_KEY + "&sign=true&group_id
 var request = require('request');
 var mongo = require('mongoskin');
 var totalMembers = [];
+var totalFullMembers = [];
 
 var mongoConf = {
   type: 'Mongo',
@@ -21,6 +22,7 @@ var mongoConf = {
 var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '?auto_reconnect');
 
 $members = db.collection("members");
+$full_members = db.collection("full_members");
 
 
 request(url, fetchMembers)
@@ -30,7 +32,9 @@ function fetchMembers(error, response, body) {
     //TODO: try catch?
     var data = JSON.parse(body);
     var members = parseMembers(data);
+    var fullMembers = data.results;
     totalMembers = totalMembers.concat(members);
+    totalFullMembers = totalFullMembers.concat(fullMembers);
     console.log(members.length, totalMembers.length)
     if(data.meta.next && members.length > 0) {
       request(data.meta.next, fetchMembers)
@@ -38,13 +42,16 @@ function fetchMembers(error, response, body) {
       //can uncomment for testing
       //$members.remove({});
       $members.insert(totalMembers, {safe: true}, function() {
-        console.log("done!", totalMembers.length);
-        db.close();
-        process.exit();
+        $full_members.insert(totalFullMembers, {safe: true}, function() {
+          console.log("done!", totalMembers.length);
+          db.close();
+          process.exit();
+        });
       });
     }
   }
 }
+
 
 function parseMembers(json) {
   var meetupMembers = json.results;

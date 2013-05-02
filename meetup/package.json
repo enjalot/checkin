@@ -5,7 +5,9 @@
   "main": "./members.js",
   "dependencies": {
     "request":"2.14.0",
-    "mongoskin":"0.4.4"
+    "mongoskin":"0.4.4",
+    "async":"*"
+    
   },
   "private": true,
   "devDependencies": {
