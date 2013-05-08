@@ -1,13 +1,19 @@
+var request = require('request');
+var mongo = require('mongoskin');
+var async = require('async');
+
 
 var settings = require("./settings");
 var eventId = "103428452"
+var groupId = "3250422"
 //you can see your meetup api key by using their api explorer:
 //http://www.meetup.com/meetup_api/console/?path=/2/rsvps
-var API_KEY= settings.API_KEY;
-var url = "https://api.meetup.com/2/rsvps?key=" + API_KEY + "&sign=true&event_id=" + eventId + "&page=200"
+var API_KEY = settings.API_KEY;
+var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=past"
 
-var request = require('request');
-var mongo = require('mongoskin');
+function rsvpUrl(eventId) {
+  return "https://api.meetup.com/2/rsvps?key=" + API_KEY + "&sign=true&event_id=" + eventId + "&page=200"
+}
 
 var mongoConf = {
   type: 'Mongo',
@@ -21,51 +27,55 @@ var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '
 
 $events = db.collection("events");
 $rsvps = db.collection("rsvps");
-$rsvps = db.collection("full_rsvps");
 
-var totalRSVPS = [];
+$events.remove()
+$rsvps.remove()
 
-request(url, fetchRSVPS)
+//grab all the events
 
-function fetchRSVPS(error, response, body) {
-  if (!error && response.statusCode == 200) {
-    //TODO: try catch?
-    var data = JSON.parse(body);
-    var rsvps = parseRSVPS(data);
-    totalRSVPS = totalRSVPS.concat(rsvps);
-    console.log(rsvps.length, totalRSVPS.length)
-    if(data.meta.next && rsvps.length > 0) {
-      request(data.meta.next, fetchRSVPS)
-    } else {
-      //can uncomment for testing
-      //$rsvps.remove({});
-      var e0 = data.results[0];
-      console.log(e0);
-      var evt = {
-        name: e0.event.name,
-        venue: e0.venue.name,
-        time: e0.event.time,
-        rsvps: totalRSVPS
-      }
-      $events.insert(evt, {safe: true}, function() {
+//for all events grab the rsvps
+
+request(eventsUrl, fetchEvents)
+
+function fetchEvents(err, response, body) {
+  var data = JSON.parse(body);
+  var events = data.results;
+  $events.insert(events, {safe: true}, function() {
+    async.map(events, fetchRSVPS, function(err, results) {
+      async.map(results, function(rsvps, asyncCb) {
+        $rsvps.insert(rsvps, {safe: true}, function(err) {
+          asyncCb(err);
+        })
+      }, function(err) {
+        console.log("all done");
+        if(err) console.log("ERROR", err);
         db.close();
-        process.exit();
-      });
+      })
+    })
+  });
+  
+} 
+
+function fetchRSVPS(evt, asyncCb) {
+  console.log("fetching rsvps for", evt.name);
+  var totalRSVPS = [];
+  
+  request(rsvpUrl(evt.id), requestCb);
+  function requestCb(err, response, body) {
+    if(err) return asynCb(err);
+    if (!err && response.statusCode == 200) {
+      //TODO: try catch?
+      var data = JSON.parse(body);
+      var rsvps = data.results
+      totalRSVPS = totalRSVPS.concat(rsvps);
+      console.log(evt.name, rsvps.length, totalRSVPS.length)
+      if(data.meta.next && rsvps.length > 0) {
+        request(data.meta.next, requestCb)
+      } else {
+        asyncCb(null, totalRSVPS);
+      }
     }
   }
 }
 
-function parseRSVPS(json) {
-  var meetupRSVPS = json.results;
-  var rsvps = meetupRSVPS.map(function(m) {
-    var rsvp = {
-      id: m.member.member_id,
-      response: m.response,
-      at: m.mtime,
-      guests: m.guests
-    };
-    return rsvp;
-  });
-  return rsvps;
-}
 
