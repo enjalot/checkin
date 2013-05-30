@@ -9,8 +9,8 @@ var groupId = "3250422"
 //you can see your meetup api key by using their api explorer:
 //http://www.meetup.com/meetup_api/console/?path=/2/rsvps
 var API_KEY = settings.API_KEY;
-//var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=past"
-var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=upcoming"
+var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=past"
+//var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=upcoming"
 
 function rsvpUrl(eventId) {
   return "https://api.meetup.com/2/rsvps?key=" + API_KEY + "&sign=true&event_id=" + eventId + "&page=200"
@@ -40,6 +40,7 @@ request(eventsUrl, fetchEvents)
 
 function fetchEvents(err, response, body) {
   var data = JSON.parse(body);
+  console.log("DATA", data)
   var events = data.results;
   $events.insert(events, {safe: true}, function() {
     async.map(events, fetchRSVPS, function(err, results) {

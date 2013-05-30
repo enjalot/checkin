@@ -10,14 +10,13 @@ var request = require('request');
 var mongo = require('mongoskin');
 var totalMembers = [];
 
+//MONGO SETUP
 var mongoConf = {
   type: 'Mongo',
   host: 'localhost',
   port: 27017,
   db: 'checkin'
 };
-
-//MONGO SETUP
 var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '?auto_reconnect');
 
 $members = db.collection("members");

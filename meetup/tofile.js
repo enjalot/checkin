@@ -20,6 +20,7 @@ var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '
 $members = db.collection("members");
 $events = db.collection("events");
 $rsvps = db.collection("rsvps");
+$rsvpattends = db.collection("rsvpattends");
 
 var evt = {
   name: "Urban Data Hackathon"
@@ -29,8 +30,10 @@ var evt = {
 async.parallel([
   writeMembers,
   writeEvents,
-  writeRsvps
+  writeRsvps,
+  writeRsvpAttends
 ], function(err, results) {
+  console.log("done?", err, results)
   db.close();
 })
 
@@ -59,14 +62,28 @@ function writeEvents(asyncCb) {
     });
   })
 }
+
 function writeRsvps(asyncCb) {
   //write out rsvps
   $rsvps.find({}).toArray(function(err, rsvps) {
     if(err) return asyncCb(err)
-    
-    var buffer = stringifyLargeArray(parseRsvps(rsvps), 10);
+    rsvps = parseRsvps(rsvps);
     console.log("rsvps", rsvps.length);
+    var buffer = stringifyLargeArray(rsvps, 10);
     fs.writeFile("_rsvps.json", buffer, function(err) {
+      asyncCb(err)
+    });
+  })
+}
+
+function writeRsvpAttends(asyncCb) {
+  //write out rsvps
+  $rsvpattends.find({}).toArray(function(err, rsvpattends) {
+    if(err) return asyncCb(err)
+    
+    var buffer = stringifyLargeArray(rsvpattends, 10);
+    console.log("rsvpattend", rsvpattends.length);
+    fs.writeFile("_rsvpattends.json", buffer, function(err) {
       asyncCb(err)
     });
   })
