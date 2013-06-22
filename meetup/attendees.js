@@ -33,8 +33,8 @@ var dates = [
   {key: '02212013', eventId: '102356032'},
   {key: '02232013', eventId: '103428452'}
   ]
-  
-  
+
+
 async.map(dates, function(date, dateCb) {
   //read the file of attendees
   fs.readFile("attendees/" + date.key + ".json", function(err, data) {
@@ -57,7 +57,13 @@ async.map(dates, function(date, dateCb) {
         }
         attendee.event = { id: eventId };
         attendee.attended = true;
-        attendee.attendedAt = attendee.checkin.at;
+        if(attendee.checkin.at) {
+          attendee.attendedAt = attendee.checkin.at;
+        } else {
+          attendee.attendedAt = attendee.checkin;
+        }
+        console.log("CHECKIN", attendee.checkin)
+        //delete attendee.checkin;
 
         //If the attendee has an id, we can look it up in the rsvps
         if(attendee.id) {
@@ -65,7 +71,7 @@ async.map(dates, function(date, dateCb) {
           //TODO: fuckin meetup. uses numeric ids for member ids and string ids for events (even tho both are #s)
           $rsvps.findOne({'member.member_id': +attendee.id, 'event.id': eventId}, function(err, rsvp) {
             if(err) return cb(err);
-            
+
             if(!rsvp) {
               return $attendees.insert(attendee, function(err) {
                 if(err) return cb(err);
