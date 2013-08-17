@@ -1,0 +1,23 @@
+{
+    "name": "MeetupCheckin",
+    "description": "Checkin App for Meetup.com meetups",
+    "version": "0.0.1",
+    "author": "Ian Johnson <enjalot@gmail.com>",
+    "dependencies": {
+        "winston": "0.7.2",
+        "nconf": "0.6.7",
+        "lodash": "1.3.1",
+        "async": "0.2.9",
+        "express": "3.3.1",
+        "passport": "0.1.17",
+        "passport-meetup": "0.1.2",
+        "mongoskin": "0.6.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/enjalot/checkin"
+    },
+    "scripts": {
+        "start": "node server.js"
+    }
+}
