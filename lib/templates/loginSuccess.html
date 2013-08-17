@@ -1,0 +1,12 @@
+<html>
+    <head></head>
+    <body>
+    <script> 
+        //  call the `loggedIn` function on the script that opened this window
+        if(opener){
+            opener.loggedIn();
+        }
+        window.close(); 
+    </script>
+</body>
+</html>

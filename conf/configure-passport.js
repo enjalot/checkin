@@ -28,11 +28,11 @@ module.exports = function configurePassport(passport){
     passport.use(new MeetupStrategy({
             consumerKey: nconf.get('meetup:key'),
             consumerSecret: nconf.get('meetup:secret'),
-            callbackURL: 'http://127.0.0.1:3000/auth/meetup/callback'
+            callbackURL: 'http://localhost:8000/auth/meetup/callback'
         },
         function(token, tokenSecret, profile, done) {
-            console.log('Got it');
-            return done(err, user);
+            console.log('Got it', profile, done);
+            return done();
             /*
             User.findOrCreate({ meetupId: profile.id }, function (err, user) {
                 return done(err, user);

@@ -80,6 +80,7 @@ module.exports = function configureApp(app){
     // -----------------------------------
     app.use(express.bodyParser());
     app.use(express.methodOverride());
+
     app.use(express.cookieParser());
     app.use(express.session({
         secret: "nKHhoNGT0#MIoKrQgCv@TN0gKgU@901GaBMEc!OD*0K3cIHZj&j_Lh7+IwPc6",
@@ -93,7 +94,6 @@ module.exports = function configureApp(app){
     app.use(passport.session());
 
     // connect flash 
-    app.use(flash());
 
     // Handle routes
     // -----------------------------------

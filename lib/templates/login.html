@@ -1,0 +1,27 @@
+<h1>Login With Meetup</h1>
+<a id='meetup-login' href='#'>Login with Meetup</a>
+<a href='/auth/meetup'>Login with Meetup</a>
+<hr />
+
+<!-- ======================================================================
+    
+    Scripts
+
+    ======================================================================= -->
+<script>
+    var loggedIn = function loggedIn(){
+        // Called from the logged in window
+        //  >>> Do stuff here, let app know we've logged in
+        console.log('Logged in!');
+    };
+
+    // facebook
+    document.getElementById('meetup-login').addEventListener("click", function(){
+        var meetupWindow = window.open(
+            '/auth/meetup', 
+            'meetupLogin',
+            'width=800,height=500'
+        );
+    });
+
+</script>
