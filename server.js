@@ -5,12 +5,12 @@
 //      Entry point to start and run the server
 //
 // ===========================================================================
-// Use cluster so we can 
-var cluster = require('cluster');
-
 // Imports
 // ---------------------------------------
 // Configure app variables
+var nconf = require('nconf');
+require('./conf/configure')();
+
 // Setup mongo
 var db = require('./lib/database');
 

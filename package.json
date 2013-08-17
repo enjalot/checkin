@@ -9,7 +9,9 @@
         "lodash": "1.3.1",
         "async": "0.2.9",
         "express": "3.3.1",
+        "ejs": "0.8.4",
         "passport": "0.1.17",
+        "connect-flash": "0.1.1",
         "passport-meetup": "0.1.2",
         "mongoskin": "0.6.0"
     },
