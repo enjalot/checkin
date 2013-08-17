@@ -22,7 +22,7 @@ module.exports = function configurePassport(passport){
             //done(err, user);
         //});
         //
-        done(err, {});
+        done(null, {});
     });
 
     // Local
