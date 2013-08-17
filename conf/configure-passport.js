@@ -17,9 +17,12 @@ module.exports = function configurePassport(passport){
         done(null, user.id);
     });
     passport.deserializeUser(function(id, done) {
+        //// when DB is setup..
         //User.findOne({ _id: id }, function (err, user) {
             //done(err, user);
         //});
+        //
+        done(err, {});
     });
 
     // Local
@@ -32,13 +35,13 @@ module.exports = function configurePassport(passport){
         
         },
         function(token, tokenSecret, profile, done) {
-            console.log('Got it', profile, done);
-            done(null, {});
-            /*
-            User.findOrCreate({ meetupId: profile.id }, function (err, user) {
-                return done(err, user);
-            });
-            */
+            // for now, no DB
+            return done(null, {id: profile.id});
+
+            //// when db is setup
+            //User.findOrCreate({ meetupId: profile.id }, function (err, user) {
+                //return done(err, user);
+            //});
         }
     ));
 };
