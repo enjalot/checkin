@@ -23,7 +23,7 @@ $rsvps = db.collection("rsvps");
 $rsvpattends = db.collection("rsvpattends");
 
 var evt = {
-  name: "Urban Data Hackathon"
+  name: "Apps + Exploration"
 }
 
 

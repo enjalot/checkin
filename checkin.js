@@ -1,9 +1,10 @@
 var events, members;
 var evt;
-d3.json("02232013/events.json", function(error, evts) {
-  events = evts;
-  evt = events[0]; //for now only have one event in our events
-  d3.json("02232013/members.json", function(error, mmbers) {
+d3.json("olddata/08222013/rsvps.json", function(error, evts) {
+  //events = evts;
+  //evt = events[0]; //for now only have one event in our events
+  evt = { rsvps: evts };
+  d3.json("olddata/08222013/members.json", function(error, mmbers) {
     members = mmbers;
     render();
   });
@@ -65,7 +66,7 @@ function render() {
   
   function memberList(data) {
     var sel = memberlist.selectAll("div.member")
-      .data(data, function(d) { return d.info.name })
+      .data(data, function(d) { return d.name })
       
     sel.enter()
       .append("div")
@@ -78,10 +79,11 @@ function render() {
   }
 
   function makeCard(d,i) {
+    var baseAvatarUrl = "http://photos1.meetupstatic.com/photos/member"
     var dis = d3.select(this);
     dis.append("img")
       .attr({
-        src: function(d) { if(d.info.avatar) { return d.info.avatar; }},
+        src: function(d) { if(d.avatar) { return baseAvatarUrl + d.avatar; }},
       })
       
     dis.append("svg")
@@ -114,9 +116,7 @@ function render() {
       
     dis.append("span")
       .text(function(d) { 
-        if(d.info) {
-          return d.info.name
-        }
+        return d.name
       })
   }
   function updateCard(d,i) {
@@ -164,7 +164,7 @@ function render() {
   function search() {
     var name = input.node().value.toLowerCase();
     var filtered = _.filter(members, function(r) {
-      return r.info.name.toLowerCase().indexOf(name) >= 0;
+      return r.name.toLowerCase().indexOf(name) >= 0;
     }).splice(0, maxRender);
     
     memberList(filtered);
@@ -200,9 +200,7 @@ function render() {
   plus.on("click", function() {
     var newMember = {
       id: generateUUID(),
-      info: {
-        name: input.node().value
-      }
+      name: input.node().value
     }
     members.push(newMember);
     rsvpclick(newMember);
