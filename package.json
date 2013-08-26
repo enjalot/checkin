@@ -14,7 +14,8 @@
         "connect-flash": "0.1.1",
         "passport-meetup": "0.1.2",
         "mongoskin": "0.6.0",
-        "request": "2.27.0"
+        "request": "2.27.0",
+        "uuid":"*"
     },
     "repository": {
         "type": "git",
