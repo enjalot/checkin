@@ -34,6 +34,7 @@ var checkindim = xfilter.dimension(function(d) { return d.checkin; });
 
 function mergeRsvp(member, rsvp) {
   member.rsvp = {
+    response: rsvp.response,
     at: rsvp.at,
     guests: rsvp.guests || 0
   }

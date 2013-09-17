@@ -1,10 +1,10 @@
 var events, members;
 var evt;
-d3.json("olddata/08222013/rsvps.json", function(error, evts) {
+d3.json("09162013/rsvps.json", function(error, evts) {
   //events = evts;
   //evt = events[0]; //for now only have one event in our events
   evt = { rsvps: evts };
-  d3.json("olddata/08222013/members.json", function(error, mmbers) {
+  d3.json("09162013/members.json", function(error, mmbers) {
     members = mmbers;
     render();
   });
@@ -26,8 +26,6 @@ function render() {
   var input = app.select("input.search")
     .on("keyup", search);
 
-
-
   prepareMembers();
    
   function output(){
@@ -44,8 +42,10 @@ function render() {
     })
     var saved = JSON.stringify(checkedin);
     localStorage.setItem("checkins", saved);
+    
+    d3.select(".count").text(checkedin.length)
     return saved;
-  }    
+  }
 
   members.sort(function(a,b) {
     var adate, bdate;
@@ -100,20 +100,40 @@ function render() {
         height: 30
       })
 
-    dis.append("svg")
+    svg = dis.append("svg")
       .classed("rsvp", true)
       .attr({
         width: 30, height: 30
       })
+    svg
       .append("use")
-      .classed("hidden", function(d) { return !d.rsvp })
+      .classed("hidden", function(d) {
+        if(d.rsvp) {
+          console.log("HI", d.rsvp.response, d.name)
+          if (d.rsvp.response === "yes") return false;
+        }
+        return true;
+      })
       .attr({
         "xlink:href": "#rsvpicon",
         transform:"scale(0.3)",
         width: 30,
         height: 30
       })
-      
+    svg.append("text")
+      .classed("waitlist", true)
+      .classed("hidden", function(d) {
+        if(d.rsvp) {
+          return d.rsvp.response != "waitlist"
+        }
+        return true;
+      })
+    .attr({
+      y: '20px',
+      'font-size': '30px'
+    })
+    .text("W")
+
     dis.append("span")
       .text(function(d) { 
         return d.name
@@ -129,7 +149,6 @@ function render() {
       .classed("hidden", function(d) { return !d.rsvp })
     dis.select("svg.check").select("use")
       .classed("hidden", function(d) { return !d.checkin })
-    
   }
           
 

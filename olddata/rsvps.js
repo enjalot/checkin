@@ -4,12 +4,13 @@ var async = require('async');
 
 
 var settings = require("./settings");
-var eventId = "103428452"
+var eventId = "135789822"
 var groupId = "3250422"
 //you can see your meetup api key by using their api explorer:
 //http://www.meetup.com/meetup_api/console/?path=/2/rsvps
 var API_KEY = settings.API_KEY;
 //var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=past"
+//var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=upcoming&event_id=" + eventId
 var eventsUrl = "https://api.meetup.com/2/events?key=" + API_KEY + "&sign=true&group_id=" + groupId + "&page=200&status=upcoming"
 
 function rsvpUrl(eventId) {
@@ -40,8 +41,8 @@ request(eventsUrl, fetchEvents)
 
 function fetchEvents(err, response, body) {
   var data = JSON.parse(body);
-  console.log("DATA", data)
   var events = data.results;
+  console.log("EVENTS", events)
   $events.insert(events, {safe: true}, function() {
     async.map(events, fetchRSVPS, function(err, results) {
       async.map(results, function(rsvps, asyncCb) {
@@ -55,8 +56,7 @@ function fetchEvents(err, response, body) {
       })
     })
   });
-  
-} 
+}
 
 function fetchRSVPS(evt, asyncCb) {
   console.log("fetching rsvps for", evt.name);
