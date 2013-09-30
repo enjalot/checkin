@@ -1,19 +1,17 @@
 var events, members;
 var evt;
-d3.json("09162013/rsvps.json", function(error, evts) {
+d3.json("09302013/rsvps.json", function(error, evts) {
   //events = evts;
   //evt = events[0]; //for now only have one event in our events
   evt = { rsvps: evts };
-  d3.json("09162013/members.json", function(error, mmbers) {
+  d3.json("09302013/members.json", function(error, mmbers) {
     members = mmbers;
     render();
   });
 });
-  
 
 
 function render() {
-  
   var checkedin = [];
 
   var app = d3.select("#display");
@@ -27,22 +25,21 @@ function render() {
     .on("keyup", search);
 
   prepareMembers();
-   
+ 
   function output(){
     var saved = saveCheckins();
     d3.select("#savearea").text(saved)
       .classed("hidden", false);
-   
     console.log(saved);
   }
-  
+
   function saveCheckins() {
     var checkedin = _.filter(members, function(d) {
       return !!d.checkin;
     })
     var saved = JSON.stringify(checkedin);
     localStorage.setItem("checkins", saved);
-    
+
     d3.select(".count").text(checkedin.length)
     return saved;
   }
@@ -60,20 +57,20 @@ function render() {
       return -1;
     }
   })
-    
+
 
   memberList(members.slice(0, maxRender));
-  
+
   function memberList(data) {
     var sel = memberlist.selectAll("div.member")
       .data(data, function(d) { return d.name })
-      
+
     sel.enter()
       .append("div")
       .classed("member", true)
       .each(makeCard)
       .on("click", rsvpclick);
-    
+
     sel.exit().remove();
     sel.each(updateCard)
   }
@@ -85,7 +82,7 @@ function render() {
       .attr({
         src: function(d) { if(d.avatar) { return baseAvatarUrl + d.avatar; }},
       })
-      
+
     dis.append("svg")
       .classed("check", true)
       .attr({
@@ -135,7 +132,7 @@ function render() {
     .text("W")
 
     dis.append("span")
-      .text(function(d) { 
+      .text(function(d) {
         return d.name
       })
   }
@@ -150,7 +147,6 @@ function render() {
     dis.select("svg.check").select("use")
       .classed("hidden", function(d) { return !d.checkin })
   }
-          
 
   function rsvpclick(d) {
     d.checkin = {
@@ -169,12 +165,12 @@ function render() {
         search();
         saveCheckins();
       })
-    
+
     checkinlist.selectAll("div.checkin")
-      .sort(function(a,b) { 
+      .sort(function(a,b) {
         return new Date(a.checkin.at) < new Date(b.checkin.at);
       })
-    
+
     //update the people in the member list
     search();
     saveCheckins();
@@ -185,7 +181,7 @@ function render() {
     var filtered = _.filter(members, function(r) {
       return r.name.toLowerCase().indexOf(name) >= 0;
     }).splice(0, maxRender);
-    
+
     memberList(filtered);
   };
 
@@ -226,9 +222,9 @@ function render() {
     input.node().value = "";
     input.node().focus();
     search();
-    
+
   })
-   
+
   function prepareMembers() {
     evt.rsvps.forEach(function(rsvp) {
       //match rsvp to member and update it
@@ -236,15 +232,15 @@ function render() {
       if(member) mergeRsvp(member, rsvp);
       if(!member) console.log("member for rsvp not found", rsvp);
     })
-    
+
     var checkins = JSON.parse(localStorage.getItem("checkins"));
     if(checkins) {
       checkins.forEach(function(checkin) {
         //match checkin to member and update it
         var member = _.find(members, function(d) { return d.id == checkin.id});
         if(member) mergeCheckin(member, checkin);
-        if(!member) { 
-          members.push(checkin) 
+        if(!member) {
+          members.push(checkin)
           member = members[members.length-1];
         }
         //console.log("member", member, member.info.name, checkin.info.name)
@@ -259,4 +255,4 @@ function generateUUID() {
       return v.toString(16);
   });
   return uid
-} 
+}

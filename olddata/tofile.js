@@ -26,12 +26,11 @@ var evt = {
   name: "Apps + Exploration"
 }
 
-
 async.parallel([
   writeMembers,
   writeEvents,
-  writeRsvps,
-  writeRsvpAttends
+  writeRsvps
+//  writeRsvpAttends
 ], function(err, results) {
   console.log("done?", err, results)
   db.close();
