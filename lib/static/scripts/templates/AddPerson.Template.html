@@ -1,0 +1,9 @@
+<input type="text"></input>
+
+<div class="referrers">
+	<% collection.each(function(model) { %>
+		<div class="people referrer">
+			<%= model.get("name") %>
+		</div>
+	<% }); %>
+</div>
