@@ -1,0 +1,114 @@
+body {
+	/*background-color: #fdf6e3;*/
+	color: #657b83;
+}
+
+.top {
+	margin: 20px;
+	padding: 10px;
+}
+
+.checkmark.noRSVP {
+	color: #ccc;
+}
+
+.checkmark.yesRSVP {
+	/*yellow*/
+	color: #b58900;
+}
+
+.checkmark.waitlistRSVP {
+	/*red*/
+	color: #dc322f;
+}
+
+.checkmark.yescheckin {
+	/*green*/
+	color: #859900;
+}
+
+.people.hideView {
+	display: none;
+}
+
+.people.member {
+	border: 2px solid #859900;
+}
+
+svg.face {
+	width: 50px;
+	height: 50px;
+}
+
+/*
+specific
+*/
+#searchbar {
+	
+}
+
+#sortby {
+
+}
+
+.checkinSuccess {
+	padding-top: 50px;
+	padding-bottom: 50px;
+	text-align: center;
+	top: 50%;
+	margin-top: -100px;
+}
+
+.checkinSuccessIcon {
+	/*green*/
+	color: #859900;
+}
+
+.people {
+	display: inline-block;
+	margin: 10px;
+	padding: 3px 10px;
+	border-radius: 3px;
+	background-color: #fdf6e3;
+	border: 2px solid #eee8d5;
+	width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.referrer {
+	width: 150px;
+}
+
+.memberImg {
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+}
+
+.memberName, .checkmark {
+	display: inline-block;
+	font-size: 1.5em;
+	/*height: 100%;*/
+}
+
+/* bootstrap modifing */
+input[type="text"] {
+	height: auto;
+}
+
+.modal-backdrop {
+	opacity: 0;
+}
+
+.modal {
+	width: 90%;
+	height: 80%;
+	margin-left: 5%;
+	margin-top: 2.5%;
+	top: 0;
+	left: 0;
+	padding: 20px;
+	overflow: auto;
+}
