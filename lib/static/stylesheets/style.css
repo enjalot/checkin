@@ -35,9 +35,9 @@ body {
 	border: 2px solid #859900;
 }
 
-svg.face {
-	width: 100px;
-	height: 100px;
+svg.nameTag {
+	width: 250px;
+	height: 125px;
 }
 
 /*
@@ -70,8 +70,8 @@ specific
 	padding: 3px 10px;
 	border-radius: 5px;
 	/*background-color: #fdf6e3;*/
-	border: 2px solid #cfcfcf;
-	width: 300px;
+	border: 1px solid #cfcfcf;
+	width: 250px;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -90,6 +90,7 @@ specific
 .memberName, .checkmark {
 	display: inline-block;
 	font-size: 1.5em;
+	/*color: #657b83;*/
 	/*height: 100%;*/
 }
 
