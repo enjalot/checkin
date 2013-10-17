@@ -3,6 +3,11 @@ body {
 	color: #657b83;
 }
 
+.content {
+	width: 936px;
+	margin: auto;
+}
+
 .top {
 	margin: 20px;
 	padding: 10px;
@@ -44,7 +49,6 @@ svg.nameTag {
 specific
 */
 #searchbar {
-	
 }
 
 #sortby {
@@ -96,7 +100,9 @@ specific
 
 /* bootstrap modifing */
 input[type="text"] {
-	height: auto;
+	height: 50px;
+
+	width: 100%;
 }
 
 .modal-backdrop {
