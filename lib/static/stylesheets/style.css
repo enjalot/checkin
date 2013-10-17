@@ -36,8 +36,8 @@ body {
 }
 
 svg.face {
-	width: 50px;
-	height: 50px;
+	width: 100px;
+	height: 100px;
 }
 
 /*
@@ -68,9 +68,9 @@ specific
 	display: inline-block;
 	margin: 10px;
 	padding: 3px 10px;
-	border-radius: 3px;
-	background-color: #fdf6e3;
-	border: 2px solid #eee8d5;
+	border-radius: 5px;
+	/*background-color: #fdf6e3;*/
+	border: 2px solid #cfcfcf;
 	width: 300px;
 	white-space: nowrap;
 	overflow: hidden;
