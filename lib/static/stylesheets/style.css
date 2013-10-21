@@ -60,21 +60,17 @@ specific
 	margin-left: auto;
 	margin-top: 20px;
 	margin-bottom: 40px;
-	width: 550px;
+	width: 580px;
 }
 
 svg#stats {
-	width: 550px;
+	width: 580px;
 	height: 200px;
 }
 
 #searchbar {
 	margin: auto;
 	width: 816px;
-}
-
-#sortby {
-
 }
 
 .checkinSuccess {
