@@ -4,7 +4,7 @@ var async = require('async');
 
 
 var settings = require("./settings");
-var eventId = "133292932"
+var eventId = "137545992"
 var groupId = "3250422"
 //you can see your meetup api key by using their api explorer:
 //http://www.meetup.com/meetup_api/console/?path=/2/rsvps
@@ -43,6 +43,7 @@ request(eventsUrl, fetchEvents)
 function fetchEvents(err, response, body) {
   var data = JSON.parse(body);
   var events = data.results;
+  console.log("err", response, data)
   console.log("EVENTS", events)
   $events.insert(events, {safe: true}, function() {
     async.map(events, fetchRSVPS, function(err, results) {

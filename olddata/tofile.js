@@ -22,16 +22,10 @@ $events = db.collection("events");
 $rsvps = db.collection("rsvps");
 $rsvpattends = db.collection("rsvpattends");
 
-var evt = {
-  name: "Apps + Exploration"
-}
-
 async.parallel([
-    /*
   writeMembers,
   writeEvents,
   writeRsvps,
-  */
   writeRsvpAttends
 ], function(err, results) {
   console.log("done?", err, results)
@@ -42,7 +36,7 @@ function writeMembers(asyncCb) {
   //write out members
   $members.find({}).toArray(function(err, members) {
     if(err) return asyncCb(err)
-    members = parseMembers(members);
+    //members = parseMembers(members);
     var buffer = stringifyLargeArray(members, 10);
     console.log("MEMBERS", members.length, buffer.length);
     fs.writeFile("_members.json", buffer, function(err) {
@@ -94,7 +88,11 @@ function writeRsvpAttends(asyncCb) {
 function parseMembers(meetupMembers) {
   var members = meetupMembers.map(function(m) {
     //TODO: this could break easily
-    var url = m.photo_url.slice(baseAvatarUrl.length);
+    if(m.avatar){ 
+      var url = m.avatar.slice(baseAvatarUrl.length);
+    } else {
+      var url = ""
+    }
     var member = {
       id: m.id,
       name: m.name

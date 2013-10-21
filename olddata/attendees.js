@@ -48,7 +48,6 @@ async.map(dates, function(date, dateCb) {
     var countNonAttends = 0;
     async.map(attendees, function(attendee, cb) {
       countAttends++;
-      var name = attendee.name;
       /*
       if(attendee.member) {
         name = attendee.member.name;
@@ -56,7 +55,6 @@ async.map(dates, function(date, dateCb) {
         name = attendee.info.name;
       }
       */
-
       $members.findOne({memberId: +attendee.id}, function(err, member) {
         attendee.event = { id: eventId };
         attendee.attended = true;
@@ -72,7 +70,10 @@ async.map(dates, function(date, dateCb) {
           //TODO: fuckin meetup. uses numeric ids for member ids and string ids for events (even tho both are #s)
           $rsvps.findOne({'memberId': +attendee.id, 'eventId': eventId}, function(err, rsvp) {
             if(err) return cb(err);
-            if(rsvp) attendee.rsvpId = rsvp.rsvpId;
+            if(rsvp) {
+              attendee.rsvpId = rsvp.rsvpId;
+              attendee.response = rsvp.response;
+            }
             $rsvpattends.insert(attendee, cb);
           });
         });
