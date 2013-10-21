@@ -1,6 +1,7 @@
 body {
 	/*background-color: #fdf6e3;*/
 	color: #657b83;
+	font-family: 'Raleway', sans-serif;
 }
 
 .content {
@@ -54,14 +55,22 @@ svg.nameTag {
 specific
 */
 
+#statsContainer {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	width: 550px;
+}
+
 svg#stats {
-	/*width: 900px;*/
+	width: 550px;
 	height: 200px;
-	margin: auto;
 }
 
 #searchbar {
-	margin:auto;
+	margin: auto;
+	width: 816px;
 }
 
 #sortby {
@@ -115,8 +124,11 @@ svg#stats {
 input.search[type="text"] {
 	height: 50px;
 	width: 816px;
-	font-size: 1.5em;
+	font-size: 1.75em;
+	line-height: 1.75em;
 	margin:auto;
+	text-align: center;
+	font-family: 'Raleway', sans-serif;
 }
 
 .modal-backdrop {
