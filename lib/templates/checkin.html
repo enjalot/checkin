@@ -1,6 +1,7 @@
 <DOCTYPE! html>
 
 <head>
+	<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
  	<link rel="stylesheet" href="/static/stylesheets/bootstrap.css" type="text/css" />
  	<link rel="stylesheet" href="/static/stylesheets/bootstrap-glyphicons.css" type="text/css" />
     <link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css" />
@@ -9,25 +10,32 @@
 </head>
 
 <body>
-	<div class="top" id="searchbar">
-			<input type="text" class="input-xlarge search" id="appendedInputButton" />
-			<!-- <button class="btn search">search</button> -->
-			<button class="btn add" style="display:none">add</button>
-	</div>
+	<div class="content">
 
-	<div class="top" id="stats">
-		
-	</div>
-
-	<div class="top" id="people">
-
-	</div>
-
-
-	<div class="modal hide checkinSuccess">
-		<div class="modal-body">
-			<h1><span class="checkinSuccessIcon glyphicon glyphicon-ok"></span>Check-in successful</h1>
+		<div class="top" id="statsContainer">
+			<svg id="stats">
+				
+			</svg>
 		</div>
+
+		<div class="top" id="searchbar">
+				<input type="text" class="input-xlarge search" id="appendedInputButton" placeholder="CHECKING IN PONIES" />
+				<!-- <button class="btn search">search</button> -->
+				<button class="btn add" style="display:none">add</button>
+		</div>
+
+
+		<div class="top" id="people">
+
+		</div>
+
+
+		<div class="modal hide checkinSuccess">
+			<div class="modal-body">
+				<h1><span class="checkinSuccessIcon glyphicon glyphicon-ok"></span>Check-in successful</h1>
+			</div>
+		</div>
+
 	</div>
 
 </body>

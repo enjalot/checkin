@@ -1,11 +1,22 @@
 body {
 	/*background-color: #fdf6e3;*/
 	color: #657b83;
+	font-family: 'Raleway', sans-serif;
+}
+
+.content {
+	width: 936px;
+	margin: auto;
 }
 
 .top {
 	margin: 20px;
 	padding: 10px;
+}
+
+.numerator {
+	font-weight: 200;
+	color: #cfcfcf;
 }
 
 .checkmark.noRSVP {
@@ -43,12 +54,23 @@ svg.nameTag {
 /*
 specific
 */
-#searchbar {
-	
+
+#statsContainer {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+	margin-bottom: 40px;
+	width: 580px;
 }
 
-#sortby {
+svg#stats {
+	width: 580px;
+	height: 200px;
+}
 
+#searchbar {
+	margin: auto;
+	width: 816px;
 }
 
 .checkinSuccess {
@@ -95,8 +117,14 @@ specific
 }
 
 /* bootstrap modifing */
-input[type="text"] {
-	height: auto;
+input.search[type="text"] {
+	height: 50px;
+	width: 816px;
+	font-size: 1.75em;
+	line-height: 1.75em;
+	margin:auto;
+	text-align: center;
+	font-family: 'Raleway', sans-serif;
 }
 
 .modal-backdrop {
