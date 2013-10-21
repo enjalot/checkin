@@ -29,14 +29,13 @@ $rsvpattends.remove();
 
 //map the date we recorded to an event id
 var dates = [
-  {key: '10192012', eventId: '84485982'} //d3.geo
-  , {key: '02212013', eventId: '102356032'} //intro-d3
+  //{key: '10192012', eventId: '84485982'} //d3.geo
+  //, {key: '02212013', eventId: '102356032'} //intro-d3
   //, {key: '02232013', eventId: '103428452'}
   , {key: '08222013', eventId: '134391752'} //apps and exploration
   , {key: '09162013', eventId: '135789822'} //d3.js and the city
   , {key: '09302013', eventId: '133292932'} //graphs and networks
   ]
-
 
 async.map(dates, function(date, dateCb) {
   //read the file of attendees
@@ -44,68 +43,49 @@ async.map(dates, function(date, dateCb) {
     if(err) return cb(err)
     var eventId = date.eventId + "";
     var attendees = JSON.parse(data);
-    console.log("len", attendees.length)
+    console.log("len", attendees.length, "date", date.key)
+    var countAttends = 0;
+    var countNonAttends = 0;
     async.map(attendees, function(attendee, cb) {
-      var name;
+      countAttends++;
+      var name = attendee.name;
+      /*
       if(attendee.member) {
         name = attendee.member.name;
       } else if(attendee.info) {
         name = attendee.info.name;
       }
-      $members.findOne({name: name}, function(err, member) {
-        if(member) {
-          attendee.id = member.id 
-        } else {
-          delete attendee.id;
-        }
+      */
+
+      $members.findOne({memberId: +attendee.id}, function(err, member) {
         attendee.event = { id: eventId };
         attendee.attended = true;
-        if(attendee.checkin.at) {
+        if(attendee.checkin && attendee.checkin.at) {
           attendee.attendedAt = attendee.checkin.at;
         } else {
           attendee.attendedAt = attendee.checkin;
         }
-        console.log("CHECKIN", attendee.checkin)
         //delete attendee.checkin;
-
-        //If the attendee has an id, we can look it up in the rsvps
-        if(attendee.id) {
+        $attendees.insert(attendee, function(err) {
+          if(err) return cb(err);
           //console.log({'member.member_id': attendee.id, 'event.id': eventId});
           //TODO: fuckin meetup. uses numeric ids for member ids and string ids for events (even tho both are #s)
-          $rsvps.findOne({'member.member_id': +attendee.id, 'event.id': eventId}, function(err, rsvp) {
+          $rsvps.findOne({'memberId': +attendee.id, 'eventId': eventId}, function(err, rsvp) {
             if(err) return cb(err);
-
-            if(!rsvp) {
-              return $attendees.insert(attendee, function(err) {
-                if(err) return cb(err);
-                $rsvpattends.insert(attendee, cb);
-              });
-            }
-            rsvp.attended = attendee.attended;
-            rsvp.attendedAt = attendee.attendedAt;
-            $attendees.insert(attendee, function(err) {
-              if(err) return cb(err);
-              $rsvpattends.insert(rsvp, cb);
-            });
-          });
-        } else {
-          //console.log(attendee);
-          $attendees.insert(attendee, function(err) {
-            if(err) return cb(err);
+            if(rsvp) attendee.rsvpId = rsvp.rsvpId;
             $rsvpattends.insert(attendee, cb);
           });
-        }
-      })
+        });
+      });
     }, function(err) {
       console.log("error with attendees", err);
-
       //loop over all the rsvps
       //insert into rsvpattends if it's not already there with attended = false
-      //pretty innefficient but fuck it. 
-      $rsvps.find({'event.id': eventId}).toArray(function(err, rsvps) {
+      //pretty innefficient but fuck it.
+      $rsvps.find({'eventId': eventId}).toArray(function(err, rsvps) {
         if(err) return cb(err);
         async.map(rsvps, function(rsvp, cb) {
-          $rsvpattends.findOne({rsvp_id: rsvp.rsvp_id}, function(err, found) {
+          $rsvpattends.findOne({rsvpId: rsvp.rsvpId}, function(err, found) {
             if(err) return cb(err);
             //only insert if nothing is found
             if(!found) {

@@ -27,9 +27,11 @@ var evt = {
 }
 
 async.parallel([
+    /*
   writeMembers,
   writeEvents,
   writeRsvps,
+  */
   writeRsvpAttends
 ], function(err, results) {
   console.log("done?", err, results)
