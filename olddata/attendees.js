@@ -29,9 +29,12 @@ $rsvpattends.remove();
 
 //map the date we recorded to an event id
 var dates = [
-  {key: '10192012', eventId: '84485982'},
-  {key: '02212013', eventId: '102356032'},
-  {key: '02232013', eventId: '103428452'}
+  {key: '10192012', eventId: '84485982'} //d3.geo
+  , {key: '02212013', eventId: '102356032'} //intro-d3
+  //, {key: '02232013', eventId: '103428452'}
+  , {key: '08222013', eventId: '134391752'} //apps and exploration
+  , {key: '09162013', eventId: '135789822'} //d3.js and the city
+  , {key: '09302013', eventId: '133292932'} //graphs and networks
   ]
 
 
