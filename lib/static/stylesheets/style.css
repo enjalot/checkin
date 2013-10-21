@@ -13,6 +13,11 @@ body {
 	padding: 10px;
 }
 
+.numerator {
+	font-weight: 200;
+	color: #cfcfcf;
+}
+
 .checkmark.noRSVP {
 	color: #ccc;
 }
@@ -48,7 +53,15 @@ svg.nameTag {
 /*
 specific
 */
+
+svg#stats {
+	/*width: 900px;*/
+	height: 200px;
+	margin: auto;
+}
+
 #searchbar {
+	margin:auto;
 }
 
 #sortby {
@@ -99,10 +112,11 @@ specific
 }
 
 /* bootstrap modifing */
-input[type="text"] {
+input.search[type="text"] {
 	height: 50px;
-
-	width: 100%;
+	width: 816px;
+	font-size: 1.5em;
+	margin:auto;
 }
 
 .modal-backdrop {
