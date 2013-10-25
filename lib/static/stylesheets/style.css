@@ -63,6 +63,18 @@ specific
 	width: 580px;
 }
 
+.add {
+	height: 50px;
+	width: 50px;
+	color: #999;
+	margin-left: 5px;
+	margin-top: -2px;
+}
+
+.add:hover {
+	color: #666;
+}
+
 svg#stats {
 	width: 580px;
 	height: 200px;
