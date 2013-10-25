@@ -1,10 +1,10 @@
 var events, members;
 var evt;
-d3.json("09302013/rsvps.json", function(error, evts) {
+d3.json("10212013/rsvps.json", function(error, evts) {
   //events = evts;
   //evt = events[0]; //for now only have one event in our events
   evt = { rsvps: evts };
-  d3.json("09302013/members.json", function(error, mmbers) {
+  d3.json("10212013/members.json", function(error, mmbers) {
     members = mmbers;
     render();
   });
@@ -76,11 +76,14 @@ function render() {
   }
 
   function makeCard(d,i) {
-    var baseAvatarUrl = "http://photos1.meetupstatic.com/photos/member"
+    //TODO new member format uses d.avatar , old uses photo_url
+    var baseAvatarUrl = "";
+    //var baseAvatarUrl = "http://photos1.meetupstatic.com/photos/member"
     var dis = d3.select(this);
     dis.append("img")
       .attr({
-        src: function(d) { if(d.avatar) { return baseAvatarUrl + d.avatar; }},
+        //src: function(d) { if(d.avatar) { return baseAvatarUrl + d.avatar; }},
+        src: function(d) { if(d.photo_url) { return baseAvatarUrl + d.photo_url; }},
       })
 
     dis.append("svg")
@@ -106,7 +109,7 @@ function render() {
       .append("use")
       .classed("hidden", function(d) {
         if(d.rsvp) {
-          console.log("HI", d.rsvp.response, d.name)
+          //console.log("HI", d.rsvp.response, d.name)
           if (d.rsvp.response === "yes") return false;
         }
         return true;

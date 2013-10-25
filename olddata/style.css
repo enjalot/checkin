@@ -16,6 +16,10 @@
   margin-left:20px;
 }
 
+.count {
+  font-size: 34px;
+  color: blue;
+}
 svg.check {
   fill: #198B19;
 }

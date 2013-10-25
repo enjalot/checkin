@@ -2,4 +2,4 @@
 *.swp
 *.DS_Store
 node_modules
-meetup/settings.js
+olddata/settings.js
