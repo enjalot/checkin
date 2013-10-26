@@ -1,5 +1,5 @@
 body {
-	/*background-color: #fdf6e3;*/
+	background-color: #fafafa;
 	color: #657b83;
 	font-family: 'Raleway', sans-serif;
 }
@@ -103,7 +103,7 @@ svg#stats {
 	margin: 10px;
 	padding: 3px 10px;
 	border-radius: 5px;
-	/*background-color: #fdf6e3;*/
+	background-color: #fff;
 	border: 1px solid #cfcfcf;
 	width: 250px;
 	white-space: nowrap;
