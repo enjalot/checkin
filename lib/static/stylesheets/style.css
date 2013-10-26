@@ -67,9 +67,9 @@ specific
 #statsContainer {
 	margin-right: auto;
 	margin-left: auto;
-	margin-top: 20px;
-	margin-bottom: 40px;
-	width: 580px;
+	margin-top: 25px;
+	margin-bottom: 20px;
+	width: 780px;
 }
 
 .add {
@@ -85,8 +85,8 @@ specific
 }
 
 svg#stats {
-	width: 580px;
-	height: 200px;
+	width: 780px;
+	height: 185px;
 }
 
 #searchbar {
