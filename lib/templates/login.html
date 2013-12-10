@@ -4,7 +4,7 @@
 <a href='/auth/meetup'>Login with Meetup (THIS window)</a>
 
 <br>
-<a href="/api/groups">Refresh Groups</a>
+<a href="/api/refreshMeetups">Refresh Groups</a>
 
 <!-- ======================================================================
 
@@ -21,7 +21,7 @@
     // facebook
     document.getElementById('meetup-login').addEventListener("click", function(){
         var meetupWindow = window.open(
-            '/auth/meetup', 
+            '/auth/meetup',
             'meetupLogin',
             'width=800,height=500'
         );
