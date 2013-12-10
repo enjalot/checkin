@@ -31,6 +31,17 @@ var configure = function(){
         console.log('conf/server.json NOT found! Copy conf/server.example.json to conf/server.json, otherwise default server settings will be used');
     }
 
+    // configure DB (also pulls from server.json)
+    nconf.add('db', {
+        'type': 'literal',
+        'db': { 
+            'port': 27017,
+            'host': 'localhost',
+            'db': 'checkin',
+            'type': 'Mongo'
+        }
+    });
+
 };
 
 module.exports = configure;

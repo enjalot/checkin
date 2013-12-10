@@ -1,5 +1,10 @@
 {
     "app": {
-        "port": 8002
+        "port": 8000
+    },
+    "db": {
+        "type": "Mongo",
+        "db": "checkin",
+        "host": "localhost"
     }
 }
