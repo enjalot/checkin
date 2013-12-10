@@ -27,7 +27,7 @@ var server = app.listen(app.get('port'));
 // message to show
 console.log('Server started in environment: ' +
     '\033[1;97m\033[4;37m' + nconf.get('NODE_ENV') + '\033[0m');
-console.log('Running on port: ' + app.get('port'));
+console.log('Running on port: ' + app.get('port') + ' (change conf/server.json to change port)');
 
 // Catch and shut down errors 
 // ---------------------------------------
