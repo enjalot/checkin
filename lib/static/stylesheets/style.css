@@ -23,6 +23,16 @@ body {
 	padding: 10px;
 }
 
+/*.header {
+	position: fixed;
+	background-color: #fafafa;
+}
+
+#people {
+	position: relative;
+	top: 300px;
+}
+*/
 .numerator {
 	font-weight: 200;
 	color: #cfcfcf;
