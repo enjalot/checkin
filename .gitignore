@@ -4,3 +4,4 @@
 node_modules
 olddata/settings.js
 conf/secrets.json
+conf/server.json
