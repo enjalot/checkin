@@ -151,6 +151,15 @@ g.stats {
 	/*height: 100%;*/
 }
 
+.yesCheckin {
+	border: 1px solid #2aa198;
+	background-color: #F1F8F8;
+}
+
+.yesCheckin {
+	stroke: #999999;
+}
+
 /* bootstrap modifing */
 input.search[type="text"] {
 	height: 50px;
