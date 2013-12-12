@@ -99,6 +99,10 @@ svg#stats {
 	height: 185px;
 }
 
+g.stats {
+	cursor: pointer;
+}
+
 #searchbar {
 	margin: auto;
 	width: 816px;
