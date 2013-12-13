@@ -23,16 +23,6 @@ body {
 	padding: 10px;
 }
 
-/*.header {
-	position: fixed;
-	background-color: #fafafa;
-}
-
-#people {
-	position: relative;
-	top: 300px;
-}
-*/
 .numerator {
 	font-weight: 200;
 	color: #cfcfcf;
@@ -78,8 +68,9 @@ specific
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 25px;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 	width: 780px;
+	padding-bottom: 0px;
 }
 
 .add {
@@ -96,7 +87,30 @@ specific
 
 svg#stats {
 	width: 780px;
-	height: 185px;
+	height: 215px;
+}
+
+/*svg#stats.fixed {
+  position: fixed;
+  top: -185px;
+  z-index: 1;
+  background-color: #FCFBF9;
+}*/
+
+
+.header.fixed {
+  position: fixed;
+  background-color: #FCFBF9;
+  z-index: 1000;
+  padding-left: 50%;
+  left: -418px;
+  top: -215px;
+  padding-right: 30px;
+}
+
+#people {
+  position: absolute;
+  top: 320px;
 }
 
 g.stats {
@@ -106,7 +120,18 @@ g.stats {
 #searchbar {
 	margin: auto;
 	width: 816px;
+  padding-top: 15px;
 }
+/*
+#searchbar.fixed {
+	position: fixed;
+	top: 35px;
+	padding-left: 50%;
+	left: -408px;
+	z-index: 1;
+	background-color: #FCFBF9;
+	width: 100%;
+}*/
 
 .checkinSuccess {
 	padding-top: 50px;
@@ -131,6 +156,7 @@ g.stats {
 	width: 250px;
 	white-space: nowrap;
 	overflow: hidden;
+  cursor: pointer;
 }
 
 .referrer {
