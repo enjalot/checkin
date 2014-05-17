@@ -19,12 +19,14 @@ var mongoConf = {
 };
 var db = mongo.db(mongoConf.host + ':' + mongoConf.port + '/' + mongoConf.db + '?auto_reconnect');
 
-$members = db.collection("members");
+$members = db.collection("members_raw");
 $members.remove();
 
+console.log("request", url)
 request(url, fetchMembers)
 
 function fetchMembers(error, response, body) {
+  console.log("callback", error, response.statusCode)
   if (!error && response.statusCode == 200) {
     //TODO: try catch?
     var data = JSON.parse(body);
